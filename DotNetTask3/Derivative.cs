@@ -1,5 +1,5 @@
 ﻿using DotNetTask3.Insurance;
-using System.Net;
+using System.Text;
 
 namespace DotNetTask3
 {
@@ -57,11 +57,11 @@ namespace DotNetTask3
             IEnumerable<BaseInsurance> enumerable = insurances;
             if (request.CostLower is not null)
             {
-                enumerable = enumerable.Where(ins => ins.BaseCost >= request.CostLower);
+                enumerable = enumerable.Where(ins => ins.GetCost() >= request.CostLower);
             }
             if (request.CostUpper is not null)
             {
-                enumerable = enumerable.Where(ins => ins.BaseCost <= request.CostUpper);
+                enumerable = enumerable.Where(ins => ins.GetCost() <= request.CostUpper);
             }
             if (request.RiskFactorLower is not null)
             {
@@ -80,6 +80,17 @@ namespace DotNetTask3
                 enumerable = enumerable.Where(ins => ins.CalculateCompensation() <= request.CompensationUpper);
             }
             return enumerable.ToList();
+        }
+
+        public override string ToString()
+        {
+            StringBuilder stringBuilder = new();
+            stringBuilder.AppendLine(base.ToString());
+            foreach (BaseInsurance insurance in insurances) 
+            {
+                stringBuilder.AppendLine(insurance.ToString());
+            }
+            return stringBuilder.ToString();
         }
     }
 }

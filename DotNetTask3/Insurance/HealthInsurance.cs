@@ -24,7 +24,7 @@ namespace DotNetTask3.Insurance
 
         public override double CalculateRiskFactor()
         {
-            return MAX_RISK_FACTOR * (0.5 + 0.5 * Person.MAX_AGE / Insurant.Age);
+            return MAX_RISK_FACTOR * (0.5 + 0.5 * Insurant.Age / Person.MAX_AGE);
         }
     }
 }

@@ -4,9 +4,9 @@ namespace DotNetTask3.Insurance
 {
     public class CovidInsurance : HealthInsurance
     {
-        public const double COST = 200;
+        public const double COST = 250;
         public const double PAY_OUT_SUM = 1000;
-        public const double RISK_FACTOR = 1;
+        public const double RISK_FACTOR = 2;
 
         public CovidInsurance(Person insurant) : base(insurant, COST)
         {

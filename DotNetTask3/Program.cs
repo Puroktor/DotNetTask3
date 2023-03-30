@@ -15,6 +15,9 @@ namespace DotNetTask3
 
             Derivative derivative= new();
 
+            CarInsurance carInsurance = new(car, oldPerson);
+            derivative.AddInsurance(carInsurance);
+
             LifeInsurance oldPersonLifeIns = new(oldPerson);
             derivative.AddInsurance(oldPersonLifeIns);
 
@@ -30,18 +33,26 @@ namespace DotNetTask3
             CovidInsurance somePersonCovidIns = new(someone);
             derivative.AddInsurance(somePersonCovidIns);
 
-            CarInsurance carInsurance = new(car, oldPerson);
-            derivative.AddInsurance(carInsurance);
+            Console.WriteLine("Initial derivative:");
+            Console.WriteLine(derivative);
 
-            Console.WriteLine(derivative.GetTotalCost());
+            Console.WriteLine("Total cost: {0}", Math.Round(derivative.GetTotalCost(), 2));
+
+            Console.WriteLine("Derivative after sort:");
             derivative.SortInsurancesByRisk();
+            Console.WriteLine(derivative);
 
             InsuranceSearchRequest searchRequest = new()
             {
-                RiskFactorLower = 0.5,
-                CostUpper = 500
+                RiskFactorLower = 3,
+                CostUpper = 4500
             };
-            derivative.FindInsurances(searchRequest);
+            List<BaseInsurance> foundInsurances = derivative.FindInsurances(searchRequest);
+            Console.WriteLine("Found insurance:");
+            foreach(var insurance in foundInsurances)
+            {
+                Console.WriteLine(insurance);
+            }
         }
     }
 }
